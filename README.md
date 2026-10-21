@@ -185,7 +185,7 @@ Implemented assertions check:
 
 Saved notebook output is evidence of a recorded run. Run the checks again after changing source data or transformation rules.
 
-> **Add image here:** a readable screenshot of the final Gold validation output showing counts, total item value and successful checks.
+![Gold Validation Output](<databricks notebooks/gold validation output.png>)
 
 ### Verify the serving layer
 
@@ -205,7 +205,8 @@ FROM gold.fact_order_items;
 
 For the source version used above, expect 99,441 orders, 112,650 items and the same item-value total of R$13,591,643.70 in both queries.
 
-> **Add image here:** Synapse query results confirming the counts and matching totals. Use results from your own run.
+![Synapse Query Results 1](<synapse - serving layer/Synapse Validation 1.png>)
+![Synapse Query Results 1](<synapse - serving layer/Synapse Validation 2.png>)
 
 ## Analytical views
 
