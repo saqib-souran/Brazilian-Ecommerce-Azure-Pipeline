@@ -15,7 +15,7 @@ CREATE EXTERNAL TABLE gold.fact_orders (
 	[customer_id] nvarchar(120),
 	[date_key] int,
 	[order_status] nvarchar(120),
-	[order_purchase_timestamp] date,
+	[order_purchase_timestamp] datetime2(7),
 	[order_delivered_customer_date] datetime2(7),
 	[order_estimated_delivery_date] datetime2(7),
 	[delivery_days] int,
