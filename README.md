@@ -17,7 +17,6 @@ CSV files hosted on GitHub and payment records stored in MySQL are ingested with
 - [Analytical views](#analytical-views)
 - [Repository guide](#repository-guide)
 - [How to run](#how-to-run)
-- [Design decisions](#design-decisions)
 - [Current limitations and next steps](#current-limitations-and-next-steps)
 - [Learning background and acknowledgements](#learning-background-and-acknowledgements)
 
@@ -183,8 +182,6 @@ Implemented assertions check:
 - Order-level revenue, freight and item counts agree with the item fact.
 - Fact references to customer, product, seller and date dimensions are valid.
 
-Saved notebook output is evidence of a recorded run. Run the checks again after changing source data or transformation rules.
-
 ![Gold Validation Output](<databricks notebooks/gold validation output.png>)
 
 ### Verify the serving layer
@@ -229,8 +226,6 @@ SELECT TOP 10
 FROM gold.vw_total_revenues_per_seller
 ORDER BY total_revenue DESC;
 ```
-
-View names use “revenue” and “spending”; their current calculations are based on item prices and freight, not reconciled payments or accounting recognition rules.
 
 ## Repository guide
 
@@ -288,16 +283,6 @@ Azure services may incur charges. Stop unused compute after completing a run.
 
 There is currently no single command or orchestrator that runs all notebook and SQL steps together.
 
-## Design decisions
-
-- **Different source systems:** MySQL and MongoDB simulate heterogeneous ingestion even though the original dataset is CSV-based.
-- **Separate storage layers:** Bronze retains raw inputs, Silver stores cleaned source datasets and Gold stores dimensions and facts.
-- **Parquet output:** Silver and Gold use a columnar format that can be consumed by Spark and Synapse.
-- **Small reference-data enrichment:** The 71 MongoDB translation documents are read through PyMongo and pandas before conversion to a Spark DataFrame.
-- **Separate fact grains:** Order and order-item facts support different analytical questions without mixing their levels of detail.
-- **Preserved financial transactions:** Price outliers remain in the data; totals are validated across transformations.
-- **Full refresh:** Silver and Gold use overwrite writes. Incremental processing is outside the current implementation.
-
 ## Current limitations and next steps
 
 This is a learning and portfolio implementation with manually configured cloud resources.
@@ -326,4 +311,4 @@ The repository includes work on preserving financial totals, retaining price out
 - **Author:** [Saqib Souran](https://github.com/saqib-souran)
 - **Dataset:** [Olist Brazilian E-Commerce Public Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-Dataset rights and reuse conditions are governed by the original dataset's licence. The Azure and database services referenced here are used as part of a personal learning project.
+Dataset rights and reuse conditions are governed by the original dataset's licence.
